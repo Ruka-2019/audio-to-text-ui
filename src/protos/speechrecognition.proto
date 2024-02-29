@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package speechrecognition;
+option csharp_namespace = "audio_cap_grpc.SpeechRecognitionGrpcService";
+
+import "google/protobuf/empty.proto";
+
+service SpeechRecognitionServiceInterface {
+  rpc CreateService(CreateServiceRequest) returns (stream RecognitionResponse);
+  rpc DeleteService(DeleteServiceRequest) returns (google.protobuf.Empty);
+  rpc KeepServiceAlive(KeepServiceAliveRequest) returns (google.protobuf.Empty);
+  rpc GetTranslation(TranslationRequest) returns (RecognitionResponse);
+}
+
+message CreateServiceRequest {
+  string language = 1;
+  string translate_language = 2;
+}
+
+message DeleteServiceRequest {
+  string id = 1;
+}
+
+message KeepServiceAliveRequest {
+  string id = 1;
+}
+
+message TranslationRequest {
+  string text = 1;
+  string language = 2;
+  string translate_language = 3;
+}
+
+message RecognitionResponse {
+  string text = 1;
+  string type = 2;
+  int32 timestamp = 3;
+}

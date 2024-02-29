@@ -1,0 +1,17 @@
+{
+  "recognitionLanguages": [
+    { "code": "en-US", "name": "English (US)" },
+    { "code": "zh-TW", "name": "Chinese (Traditional)" },
+    { "code": "ja-JP", "name": "Japanese" },
+    { "code": "ko-KR", "name": "Korean" },
+    { "code": "id-ID", "name": "Indonesian" }
+  ],
+  "translationLanguages": [
+    { "code": "en-US", "name": "English (US)" },
+    { "code": "zh-TW", "name": "Chinese (Traditional)" },
+    { "code": "ja-JP", "name": "Japanese" },
+    { "code": "ko-KR", "name": "Korean" },
+    { "code": "id-ID", "name": "Indonesian" },
+    { "code": "", "name": "None" }
+  ]
+}
