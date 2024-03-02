@@ -3,21 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.11",
+    "@mui/material": "^5.15.11",
+    "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "autoprefixer": "^10.4.17",
+    "cross-env": "^7.0.3",
+    "electron-is-dev": "^3.0.1",
     "google-protobuf": "^3.21.2",
     "grpc-web": "^1.5.0",
+    "postcss": "^8.4.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.2",
     "react-scripts": "5.0.1",
+    "redux": "^5.0.1",
+    "tailwindcss": "^3.4.1",
     "web-vitals": "^2.1.4"
   },
+  "homepage": ".",
+  "main": "electron.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "concurrently \"npm run react-start-without-browser\" \"npm run electron-start\"",
+    "electron-start": ".\\node_modules\\.bin\\electron .",
+    "react-start-without-browser": "cross-env BROWSER=none react-scripts start",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +57,9 @@
   },
   "devDependencies": {
     "@types/google-protobuf": "^3.15.12",
+    "@types/react-router-dom": "^5.3.3",
+    "concurrently": "^8.2.2",
+    "electron": "^29.1.0",
     "typescript": "^4.9.5"
   }
 }
