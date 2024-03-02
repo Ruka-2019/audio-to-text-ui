@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 let isDev;
 import('electron-is-dev').then((module) => {
@@ -18,6 +18,7 @@ function createWindow() {
       contextIsolation: true, // For newer versions of Electron, set this to true and use a preload script
       enableRemoteModule: true, // Consider security implications of enabling remote module
       // Make sure JavaScript is enabled
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
 
@@ -30,9 +31,48 @@ function createWindow() {
   //   win.webContents.openDevTools();
   // }
   win.webContents.openDevTools();
+
+
+  let prevBounds;
+  // Close window action
+  ipcMain.on('close-window', () => {
+    if (win) win.close();
+  });
+
+  // Minimize window action
+  ipcMain.on('minimize-window', () => {
+    if (win) win.minimize();
+  });
+
+  // Maximize window action
+  ipcMain.on('maximize-window', () => {
+    if (win) win.maximize();
+  });
+
+  // Maximize window action
+  ipcMain.on('restore-window', () => {
+    if (win) win.restore();
+  });
+
+  ipcMain.on('toggle-maximize-window', () => {
+    const window = BrowserWindow.getFocusedWindow();
+    console.log('Current maximized state:', window.isMaximized()); // Debug log
+    if (window) {
+      if (window.isMaximized()) {
+        console.log('Restoring window'); // Debug log
+        window.setBounds(prevBounds);
+        window.restore();
+      } else {
+        console.log('Maximizing window'); // Debug log
+        prevBounds = window.getBounds();
+        window.maximize();
+      }
+    }
+  });
 }
 
 app.on('ready', createWindow);
+
 
 
 app.on('window-all-closed', () => {

@@ -15,14 +15,8 @@ import {
     setKeepSessionAlive, setStartService, setTransparency
 } from '../store/uiControlSlide';
 import {
-    resetContents,
+    resetContents, setRecognizing, setRecognizingTranslation,
 } from '../store/subtitleContainerSlide';
-// const { app, BrowserWindow, ipcMain } = require('electron');
-// let ipcRenderer;
-// if (window && window.process &&  (window.process as any).type) {
-//     ipcRenderer = window.require('electron').ipcRenderer;
-// }
-
 
 const MenuPage: React.FC = () => {
     const dispatch = useDispatch();
@@ -70,6 +64,8 @@ const MenuPage: React.FC = () => {
 
     const clearAllContent = () => {
         dispatch(resetContents());
+        dispatch(setRecognizing(''));
+        dispatch(setRecognizingTranslation(''));
     };
 
     const transparency = useSelector((state: RootState) => state.uiControl.transparency);
@@ -77,35 +73,6 @@ const MenuPage: React.FC = () => {
     const handleTransparencyChange = (event: Event, newValue: number | number[]) => {
         dispatch(setTransparency(newValue as number));
     };
-
-    // function for electron application windows
-
-    const handleClose = () => {
-        // ipcRenderer.send('close-window');
-    };
-    const handleMinimize = () => {
-        // ipcRenderer.send('minimize-window');
-    };
-
-    const handleMaximize = () => {
-        // ipcRenderer.send('maximize-window');
-    };
-    // ipcMain.on('close-window', () => {
-    //     const window = BrowserWindow.getFocusedWindow();
-    //     if (window) window.close();
-    // });
-    // ipcMain.on('minimize-window', () => {
-    //     const window = BrowserWindow.getFocusedWindow();
-    //     if (window) window.minimize();
-    // });
-    // ipcMain.on('maximize-window', () => {
-    //     const window = BrowserWindow.getFocusedWindow();
-    //     if (window) window.maximize();
-    // });
-    const isElectron = () => {
-        return window && window.process && (window.process as any).type;
-    };
-
 
     return (
         <div className="p-4 bg-white rounded-lg shadow">

@@ -32,11 +32,6 @@ import {RootState} from '../store/store';
 const SessionHandler: React.FC = () => {
     const dispatch = useDispatch();
 
-    interface Language {
-        code: string;
-        name: string;
-    }
-
     // Setup base const for Recognition Service
     const client = new SpeechRecognitionServiceInterfaceClient('http://localhost:5113', null, null);
     const responses = useSelector((state: RootState) => state.subtitleContainer.messages);
@@ -52,10 +47,7 @@ const SessionHandler: React.FC = () => {
     // Set up for languages dropdowns
     const selectedRecognitionLanguage = useSelector((state: RootState) => state.uiControl.selectedRecognitionLanguage);
     const selectedTranslationLanguage = useSelector((state: RootState) => state.uiControl.selectedTranslationLanguage);
-    // const [languages, setLanguages] = useState<{ recognitionLanguages: Language[]; translationLanguages: Language[] }>({
-    //     recognitionLanguages: [],
-    //     translationLanguages: []
-    // });
+
     const languages = useSelector((state: RootState) => state.uiControl.recognitionLanguages);
     useEffect(() => {
         var jsonPath = process.env.PUBLIC_URL + '/language-supports.json';
@@ -107,10 +99,6 @@ const SessionHandler: React.FC = () => {
         }
     };
 
-    // const toggleTranslation = () => {
-    //     dispatch(setRealtimeTranslation(!enableRealtimeTranslation));
-    // };
-
     useEffect(() => {
         if (enableRealtimeTranslation) {
             // Start the interval for translation when toggled on
@@ -130,15 +118,6 @@ const SessionHandler: React.FC = () => {
             }
         };
     }, [enableRealtimeTranslation, selectedTranslationLanguage, selectedRecognitionLanguage]);
-
-    // Functions for UI elements
-
-    const clearAllContent = () => {
-
-        dispatch(resetContents());
-        dispatch(setRecognizing(''));
-        dispatch(setRecognizingTranslation(''));
-    };
 
     // Functions for Recognition Service
 
@@ -196,8 +175,6 @@ const SessionHandler: React.FC = () => {
                 console.error('Error deleting service:', err);
             } else {
                 console.log('Service deleted successfully.');
-                // clearAllContent();
-                // Update UI to reflect the service has been terminated
             }
         });
 
@@ -224,10 +201,6 @@ const SessionHandler: React.FC = () => {
             deleteService();
         }
     }, [startService]);
-
-    // const toggleKeepAlive = () => {
-    //     dispatch(setKeepSessionAlive(!keepAliveEnabled));
-    // };
 
     useEffect(() => {
         if (keepAliveEnabled && sessionId) {

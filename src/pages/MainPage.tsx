@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuPage from './MenuPage';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "store/store";
+import BarPage from "./Bar";
 
 interface Message {
     id: number;
@@ -106,7 +107,8 @@ const MainPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen draggable-area" style={backgroundTransparencyStyle}>
+        <div className="flex flex-col h-screen" style={backgroundTransparencyStyle}>
+            <BarPage />
             <div ref={messageContainerRef} className="flex-grow overflow-auto p-4 space-y-4">
                 {messages.map((message, index) => (
                     <div key={index} className="rounded-md p-2 max-w-3/4 mx-auto my-1"
