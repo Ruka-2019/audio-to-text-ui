@@ -27,13 +27,11 @@ function createWindow() {
   win.loadURL(startUrl);
 
   // Open the DevTools.
-  // if (isDev) {
-  //   win.webContents.openDevTools();
-  // }
-  win.webContents.openDevTools();
+  if (isDev) {
+    win.webContents.openDevTools();
+  }
+  // win.webContents.openDevTools();
 
-
-  let prevBounds;
   // Close window action
   ipcMain.on('close-window', () => {
     if (win) win.close();
@@ -54,6 +52,7 @@ function createWindow() {
     if (win) win.restore();
   });
 
+  let prevBounds;
   ipcMain.on('toggle-maximize-window', () => {
     const window = BrowserWindow.getFocusedWindow();
     console.log('Current maximized state:', window.isMaximized()); // Debug log

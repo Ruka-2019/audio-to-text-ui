@@ -29,7 +29,7 @@ const MainPage: React.FC = () => {
     };
 
     useEffect(() => {
-        if (messages.length < 4) {
+        if (messages.length < 2) {
             scrollToBottom();
             return;
         }
@@ -48,7 +48,7 @@ const MainPage: React.FC = () => {
             }
         );
 
-        const targetMessage = messagesEndRef.current?.parentNode?.childNodes[messages.length - 4];
+        const targetMessage = messagesEndRef.current?.parentNode?.childNodes[messages.length - 2];
         if (targetMessage) {
             observer.observe(targetMessage as Element);
         }
@@ -58,7 +58,7 @@ const MainPage: React.FC = () => {
                 observer.unobserve(targetMessage as Element);
             }
         };
-    }, [messages]);
+    }, [messages, realTimeSubtitle]);
 
 
     // Menu Components

@@ -145,8 +145,6 @@ const MenuPage: React.FC = () => {
                 />
             </div>
         </div>
-
-
     );
 };
 
